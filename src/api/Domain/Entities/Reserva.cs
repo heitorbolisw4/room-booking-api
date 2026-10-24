@@ -45,6 +45,9 @@ public class Reserva
             throw new DomainException("A data FIM deve ser no FUTURO");
         }
     }
-
+    // regra pura: sem banco, testável com xUnit
+   public bool SobrepoeCom(Reserva outra)
+        => SalaId == outra.SalaId && outra.Inicio < Fim && outra.Fim > Inicio;
+    
     
 }
