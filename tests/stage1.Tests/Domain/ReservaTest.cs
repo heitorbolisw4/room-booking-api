@@ -55,13 +55,31 @@ public class ReservaTests
     }
 
     [Fact]
-    public void CriarDuasReservas_MesmaSalaEHorario_LancaDomainException()
+    public void SobrepoeCom_HorarioParcialMesmaSala_RetornaTrue()
     {
-        var inicio1 = DateTimeOffset.Now.AddHours(3);
-        var inicio2 = DateTimeOffset.Now.AddHours(3);
-        var fim1 = inicio1.AddHours(2);
-        var fim2 = inicio2.AddHours(2);
-        Assert.Throws<DomainException>(() => Reserva.CriarReserva(1, inicio1, fim1));
-        Assert.Throws<DomainException>(() => Reserva.CriarReserva(2, inicio2, fim2));
+        var base14h = DateTimeOffset.UtcNow.Date.AddDays(1).AddHours(14);
+        var a = Reserva.CriarReserva(1, base14h ,base14h.AddHours(2));
+        var b = Reserva.CriarReserva(1, base14h.AddHours(1) ,base14h.AddHours(3));
+
+        Assert.True(a.SobrepoeCom(b));
+    }
+
+    [Fact]
+    public void SobrepoeCom_HorariosEncostados_RetornaFalse()
+    {
+        var base14h = DateTimeOffset.UtcNow.Date.AddDays(1).AddHours(14);
+        var a = Reserva.CriarReserva(1, base14h.AddHours(1) ,base14h.AddHours(3));//inicio 15h, fim 17h
+        var b = Reserva.CriarReserva(1, base14h.AddHours(3) ,base14h.AddHours(4));//inicio 17h, fim 18h
+
+        Assert.False(a.SobrepoeCom(b));
+    }
+    [Fact]
+    public void SobrepoeCom_SalasDiferentes_RetornaFalse()
+    {
+        var base14h = DateTimeOffset.UtcNow.Date.AddDays(1).AddHours(14);
+        var a = Reserva.CriarReserva(1, base14h.AddHours(1) ,base14h.AddHours(3));//inicio 15h, fim 17h
+        var b = Reserva.CriarReserva(2, base14h.AddHours(2) ,base14h.AddHours(4));//inicio 16h, fim 18h
+
+        Assert.False(a.SobrepoeCom(b));
     }
 }

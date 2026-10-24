@@ -1,3 +1,4 @@
+using stage1.Domain.Enum;
 using stage1.Domain.Exceptions;
 
 namespace stage1.Domain.Entities;
@@ -16,6 +17,7 @@ public class Reserva
     public int SalaId { get; private set; }
     public DateTimeOffset Inicio { get; private set; }
     public DateTimeOffset Fim { get; private set; }
+    public ReservaStatus Status {get; set;} = ReservaStatus.Pendente;
     public Sala? Sala {get; set;}
 
     public static Reserva CriarReserva(int salaId, DateTimeOffset inicio, DateTimeOffset fim)
@@ -45,8 +47,7 @@ public class Reserva
             throw new DomainException("A data FIM deve ser no FUTURO");
         }
     }
-    // regra pura: sem banco, testável com xUnit
-   public bool SobrepoeCom(Reserva outra)
+    public bool SobrepoeCom(Reserva outra)
         => SalaId == outra.SalaId && outra.Inicio < Fim && outra.Fim > Inicio;
     
     

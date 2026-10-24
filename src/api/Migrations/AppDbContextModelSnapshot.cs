@@ -32,6 +32,9 @@ namespace stage1.Migrations
                     b.Property<int>("SalaId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SalaId");
@@ -58,6 +61,38 @@ namespace stage1.Migrations
                     b.HasIndex("Numero");
 
                     b.ToTable("Salas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Numero = 301
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Numero = 401
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Numero = 501
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = true,
+                            Numero = 601
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = false,
+                            Numero = 701
+                        });
                 });
 
             modelBuilder.Entity("stage1.Domain.Entities.Reserva", b =>

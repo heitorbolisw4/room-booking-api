@@ -17,5 +17,7 @@ public class ReservaConfiguration : IEntityTypeConfiguration<Reserva>
         builder.Property( r => r.Inicio).IsRequired().HasConversion( new DateTimeOffsetToBinaryConverter() );
         builder.Property( r => r.Fim).IsRequired().HasConversion( new DateTimeOffsetToBinaryConverter() );
 
+        builder.HasOne( r => r.Sala ).WithMany( s => s.Reservas ).HasForeignKey( r => r.SalaId );
+
     }
 }

@@ -12,6 +12,7 @@ public static  class ReservaEndpoints
     {
         var group = app.MapGroup("/reservas");
         group.MapPost("", Create);
+        group.MapGet("", List);
 
 
         return app;
@@ -37,6 +38,17 @@ public static  class ReservaEndpoints
         await db.SaveChangesAsync();
         return Results.Created($"Sua reserva { reserva.Id } foi realizada com sucesso ", reserva.Id);
 
+    }
+
+    private static async Task<IResult> List(AppDbContext db)
+    {
+        var reservas = await db.Reservas.Select( r => ToResponse(r)).ToListAsync();
+        
+        return Results.Ok(reservas);
+    }
+    private static  ReservaResponse ToResponse( Reserva reserva)
+    {
+        return new ReservaResponse(reserva.SalaId, reserva.Inicio, reserva.Fim);
     }
 
 
