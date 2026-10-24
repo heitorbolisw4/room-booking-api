@@ -22,13 +22,14 @@ public static  class ReservaEndpoints
 
     private static async Task<IResult> Create(AppDbContext db, CriarReservaRequest request)
     {
-        // eu verifico se há uma reserva salva com o mesmo Id
-
-        bool reservaExiste = await db.Reservas.AnyAsync(x => x.SalaId == request.SalaId && x.Inicio == request.Inicio && x.Fim == request.Fim );
+        
+        
+        bool reservaExiste = await db.Reservas.AnyAsync(x => x.SalaId == request.SalaId && request.Inicio < x.Fim && request.Fim > x.Inicio);
         if (reservaExiste)
         {
             return Results.Conflict("Há um horario reservado nesta sala");
         }
+
         
         var reserva = Reserva.CriarReserva(request.SalaId, request.Inicio, request.Fim);
 

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using stage1.Domain.Entities;
 
 namespace stage1.Data.Configurations;
@@ -13,7 +14,8 @@ public class ReservaConfiguration : IEntityTypeConfiguration<Reserva>
 
         builder.HasIndex( r => r.SalaId);
 
-        builder.Property( r => r.Inicio).IsRequired();
-        builder.Property( r => r.Fim).IsRequired();
+        builder.Property( r => r.Inicio).IsRequired().HasConversion( new DateTimeOffsetToBinaryConverter() );
+        builder.Property( r => r.Fim).IsRequired().HasConversion( new DateTimeOffsetToBinaryConverter() );
+
     }
 }

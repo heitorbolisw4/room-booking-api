@@ -8,6 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
 
     public DbSet<Reserva> Reservas => Set<Reserva>();
+    public DbSet<Sala> Salas => Set<Sala>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
