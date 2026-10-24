@@ -13,6 +13,7 @@ public class Sala
     public int Id { get; private set; }
     public int Numero { get; private set; }
     public bool IsActive { get; private set; } = true;
+    public ICollection<Reserva>? Reservas {get; set;}
 
     public static Sala CriarSala( int numero )
     {

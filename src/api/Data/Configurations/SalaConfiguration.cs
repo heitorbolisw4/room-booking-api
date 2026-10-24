@@ -15,5 +15,7 @@ public class SalaConfiguration : IEntityTypeConfiguration<Sala>
 
         builder.Property( s => s.Id ).UseAutoincrement();
         builder.Property( s => s.IsActive ).IsRequired();
+
+        builder.HasMany( s => s.Reservas ).WithOne( s => s.Sala ).HasForeignKey( s => s.SalaId );
     }
 }

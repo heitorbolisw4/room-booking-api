@@ -16,6 +16,7 @@ public class Reserva
     public int SalaId { get; private set; }
     public DateTimeOffset Inicio { get; private set; }
     public DateTimeOffset Fim { get; private set; }
+    public Sala? Sala {get; set;}
 
     public static Reserva CriarReserva(int salaId, DateTimeOffset inicio, DateTimeOffset fim)
     {

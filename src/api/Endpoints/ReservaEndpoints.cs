@@ -37,7 +37,6 @@ public static  class ReservaEndpoints
         await db.SaveChangesAsync();
         return Results.Created($"Sua reserva { reserva.Id } foi realizada com sucesso ", reserva.Id);
 
-        // 
     }
 
 
