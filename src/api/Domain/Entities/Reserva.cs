@@ -19,6 +19,7 @@ public class Reserva
     public DateTimeOffset Fim { get; private set; }
     public ReservaStatus Status {get; set;} = ReservaStatus.Pendente;
     public Sala? Sala {get; set;}
+    public DateTimeOffset ExpiraEm {get; private set;} = DateTimeOffset.UtcNow.AddMinutes(2);
 
     public static Reserva CriarReserva(int salaId, DateTimeOffset inicio, DateTimeOffset fim)
     {

@@ -1,14 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using stage1.Data;
+using stage1.Domain.Enum;
 using stage1.Endpoints;
+using stage1.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 var conn = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(conn));
-
+builder.Services.AddHostedService<ReservaStatusService>();
 builder.Services.AddValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen( options =>

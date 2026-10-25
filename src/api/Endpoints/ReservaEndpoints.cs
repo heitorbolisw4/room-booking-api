@@ -39,7 +39,7 @@ public static  class ReservaEndpoints
         return Results.Created($"Sua reserva { reserva.Id } foi realizada com sucesso ", reserva.Id);
 
     }
-
+    
     private static async Task<IResult> List(AppDbContext db)
     {
         var reservas = await db.Reservas.Select( r => ToResponse(r)).ToListAsync();
