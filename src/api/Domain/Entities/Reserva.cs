@@ -48,6 +48,15 @@ public class Reserva
             throw new DomainException("A data FIM deve ser no FUTURO");
         }
     }
+
+    public void Cancelar( DateTimeOffset agora)
+    {
+        if( Inicio <= agora.AddHours(1))
+        {
+            throw new DomainException("O Cancelamento deve ser feito com 1 hora de antecedencia");
+        }
+        Status = ReservaStatus.Cancelada;
+    }
     public bool SobrepoeCom(Reserva outra)
         => SalaId == outra.SalaId && outra.Inicio < Fim && outra.Fim > Inicio;
     
