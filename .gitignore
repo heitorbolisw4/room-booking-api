@@ -8,7 +8,8 @@
 *.db.shm
 *.db.wal
 
-
+src/api/app.db-wal
+src/api/app.db-shm
 
 
 # dotenv files
